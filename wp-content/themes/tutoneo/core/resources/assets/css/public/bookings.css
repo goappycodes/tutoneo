@@ -1,0 +1,90 @@
+/*--start student/parent bookings--*/
+.wrapper-header-booking{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.wrapper-info-booking{
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-col{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.block-booking{
+    border-bottom: 1px solid #e2e2e2;
+    margin-bottom: 30px;
+}
+
+ .button-group-dashboard a {
+        margin-bottom:20px;
+    }
+    
+.button-group-dashboard .dropdown button {
+        margin-bottom:20px;
+}
+/*--end student/parent bookings--*/
+
+
+
+/*-----RESPONSIVE CSS---*/
+
+@media (max-width: 767.98px){
+    
+    .wrapper-header-booking{
+        flex-wrap: wrap;
+    }
+    
+    .wrapper-info-booking{
+        display: block;
+    }
+    
+    .flex-res{
+        display:flex;
+        flex-wrap:wrap;
+        align-items:center;
+    }
+    
+    .status-payments{
+        display:flex;
+    }
+    
+    .status-payments p{
+        margin-bottom:0;
+    }
+    
+    .badge{
+        font-size: 0.8rem;
+        font-weight: 600;
+        line-height: 2;
+    }
+    
+    .block-booking{
+        padding:20px;
+    }
+    
+    .fc-prev-button{
+        padding: .5625rem 0.5rem !important;
+    }
+    
+    .fc-button-primary{
+         padding: .5625rem 0.5rem !important;
+    }
+    
+    .fc .fc-toolbar-title {
+        font-size: 1rem !important;
+    
+    }
+}
+
+.booking-list p {
+    margin-bottom: 0.5rem !important;
+}

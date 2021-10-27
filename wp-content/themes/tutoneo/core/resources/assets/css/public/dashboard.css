@@ -1,0 +1,94 @@
+/*--start student/parent dashboard--*/
+
+.flex-sub-haeding-dashboard{
+    display:flex;
+    justify-content: space-between;
+}
+
+.flex-info-lesson{
+    display:flex;
+    justify-content: space-between;
+}
+
+.width-50{
+    width:44%;
+}
+
+.width-25{
+    width:28%;
+}
+
+.wrapper-box-inner-dashboard{
+    display:flex;
+    justify-content: space-between;
+}
+
+.flex-upcoming-lessons{
+    display:flex;
+    justify-content: space-between;
+}
+
+.flex-upcoming-lessons a:hover{
+    text-decoration:none;
+}
+
+.box-inner-dashboard{
+    width: 49%;
+    background: white;
+    border:1px solid #e4e4e4;
+    padding: 20px;
+    border-radius: calc(.375rem - 0px);
+    box-shadow: 0 1.5rem 4rem rgba(22,28,45,.1);
+}
+
+.custom-card-dashboard{
+    padding:0 30px;
+}
+
+.total-booking-lesson{
+    display: flex;
+    justify-content: center;
+}
+
+.border-smooth{
+    border: 1px solid #eaeaea;
+}
+
+.pd-card-header-cs{
+    padding: 1.5rem 0rem;
+}
+
+
+@media (max-width: 767px){
+    
+    .custom-card-dashboard {
+        padding: 0 20px;
+    }
+    
+    .flex-sub-haeding-dashboard .width-50{
+        font-size:0.8rem;
+    }
+    
+    .flex-sub-haeding-dashboard .width-25{
+        font-size:0.8rem;
+    }
+    
+    .width-50{
+        width:52%;
+        padding-right: 10px;
+    }
+
+    .width-25{
+       width:24%;
+       padding-right: 10px;
+    }
+    
+    .width-25:last-child{
+       padding-right: 0;
+    }
+    
+}
+
+
+
+/*--end student/parent dashboard--*/

@@ -1,0 +1,11 @@
+.top_up_details {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pop_up_amount_field{
+    margin-bottom:0.5rem;
+}
+.pop_up_amount_submit{
+    width:100%;
+}

@@ -1,0 +1,12 @@
+body.admin-bar .fixed-top {
+    top: 32px;
+}
+
+@media (max-width:768px){
+    #wpadminbar {
+        position: fixed;
+    }    
+    body.admin-bar .fixed-top {
+        top: 46px;
+    }    
+}

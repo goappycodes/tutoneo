@@ -1,0 +1,40 @@
+/*--start payments --*/
+
+.payments-history-block{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.payments-history-block p{
+    margin-bottom:10px;
+}
+
+/*--end payments--*/
+
+/*-----RESPONSIVE CSS---*/
+
+@media (max-width: 767.98px){
+    
+    .payments-history-block{
+        display:block;
+    }
+    
+    .payments-history-block .end-col{
+       display: flex;
+       justify-content: space-between;
+    }
+    
+    .withdraw-credit-points{
+       width: 49%;
+       height: 50px;
+       text-align: center;
+    }
+    .alert-danger{
+       width: 49%;
+       height: 50px;
+       text-align: center; 
+    }
+    
+    
+}

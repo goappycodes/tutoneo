@@ -1,0 +1,22 @@
+/*
+Theme Name: Tutoneo
+Author: Appycodes
+Author URI: https://appycodes.dev
+Version: 100.9.4
+Text Domain: understrap
+*/
+
+/*
+This file is just used to identify the theme in WordPress.
+The compiled CSS output can be found in /css/theme.css
+The SASS sources for it can be found in /sass/
+The dependencies can be found in /src/ after running "gulp copy-assets" terminal command
+
+...and now go out and play!
+*/
+
+:root {
+	--primary-color: #dce7fc;
+	--secondary-color:#cfe8b2;
+	--primary-grey-set:#A4A4A4;
+}
