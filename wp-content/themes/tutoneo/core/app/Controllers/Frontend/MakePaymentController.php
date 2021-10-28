@@ -15,6 +15,8 @@ class MakePaymentController extends Controller
     public $stripe_service;
     public $stripe_session;
     public $error_type;
+   
+
 
     public function __construct()
     {
@@ -51,6 +53,7 @@ class MakePaymentController extends Controller
 
         try {
             $this->stripe_session = $this->create_stripe_session($booking);
+            // $this->stripe_session = $this->create_stripe_session_user();
         } catch (\Exception $e) {
             $this->error_type = 'stripe_error';
             return;
@@ -59,7 +62,9 @@ class MakePaymentController extends Controller
 
     public function create_stripe_session(Booking $booking)
     {
+        
         $stripe_customer_id = $booking->user()->get_stripe_customer_id();
+
 
         if ($stripe_customer_id) {
             $this->stripe_service->set_customer($stripe_customer_id);

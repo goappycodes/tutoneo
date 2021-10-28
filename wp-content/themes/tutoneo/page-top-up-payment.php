@@ -12,7 +12,6 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 $container = get_theme_mod( 'understrap_container_type' );
-
 echo do_shortcode('['. Config::APP_PREFIX . 'top_up_payment]');
 
 get_footer(); 

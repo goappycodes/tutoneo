@@ -12,6 +12,47 @@ class User extends Model
 {
     use BelongsToUser;
 
+    /*newly added field*/
+    const POST_TYPE              = 'booking';
+    const REFERENCE_NO_FIELD     = 'reference_no';
+    const USER_FIELD             = 'user';
+    const FIRST_NAME_FIELD       = 'first_name';
+    const LAST_NAME_FIELD        = 'last_name';
+    const EMAIL_FIELD            = 'email';
+    const GENDER_FIELD           = 'gender';
+    const DATE_OF_BIRTH_FIELD    = 'date_of_birth';
+    const STREET_ADDRESS_FIELD   = 'street_address';
+    const STREET_ADDRESS_2_FIELD = 'address_line_2';
+    const CITY_FIELD             = 'city';
+    const STATE_PROVINCE_FIELD   = 'state_province';
+    const ZIP_POSTAL_FIELD       = 'zip_postal_code';
+    const COUNTRY_FIELD          = 'country';
+    const PHONE_FIELD            = 'phone_number';
+    const SKYPE_ID_FIELD         = 'skype_id';
+    const ZOOM_ID_FIELD          = 'zoom_id';
+    const HOURS_BOOKED_FIELD     = 'hours_booked';
+    const LESSON_OFFERED         = 'lesson_offered';
+    const HAS_THIRD_PARTY_FIELD  = 'has_third_party_payment';
+    const PAYER_FIRST_NAME_FIELD = 'payer_first_name';
+    const PAYER_LAST_NAME_FIELD  = 'payer_last_name';
+    const PAYER_EMAIL_FIELD      = 'payer_email';
+    const IS_MATCH_FOUND_FIELD   = 'is_match_found';
+    const REASON_FIELD           = 'match_not_found_reason';
+    const TEACHER_FIELD          = 'teacher';
+    const NOTIFY_USER_FIELD      = 'notify_user';
+    const PAYMENT_LINK_FIELD     = 'send_payment_link';
+    const QUESTIONNAIRE_RESPONSE = 'questionnaire_response';
+    const QUESTIONNAIRE_RES_ID   = 'questionnaire_response_id';
+    const MATCH_FOUND            = 'yes';
+    const MATCH_NOT_FOUND        = 'no';
+    const STRIPE_SESSION_ID      = 'stripe_session_id';
+    const STATUS                 = 'status';
+    const STATUS_CREATED         = 'Created';
+    const STATUS_CANCELLED       = 'Cancelled';
+    const STATUS_REFUNDED        = 'Refunded';
+    // newly added field end
+
+
     const STRIPE_CUST_ID = 'stripe_customer_id';
 
     const STUDENT_ROLE = 'student';

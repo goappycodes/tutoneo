@@ -7,6 +7,8 @@ use App\Models\ParentBookingForm;
 use App\Models\StudentBookingForm;
 use App\Models\StudentQuestionnaireForm;
 
+use App\Models\User;
+
 class BookingService
 {
     private static $reference;
@@ -52,8 +54,11 @@ class BookingService
 
         $booking_meta = [
             Booking::REFERENCE_NO_FIELD     => self::get_reference(),
+            // User::REFERENCE_NO_FIELD     => self::get_reference(),
             Booking::FIRST_NAME_FIELD       => rgar($entry, $first_name_field),
+            // User::FIRST_NAME_FIELD       => rgar($entry, $first_name_field),
             Booking::LAST_NAME_FIELD        => rgar($entry, $last_name_field),
+            // User::LAST_NAME_FIELD        => rgar($entry, $last_name_field),
             Booking::EMAIL_FIELD            => rgar($entry, $email_field),
             Booking::GENDER_FIELD           => rgar($entry, $gender_field),
             Booking::DATE_OF_BIRTH_FIELD    => rgar($entry, $date_of_birth_field),

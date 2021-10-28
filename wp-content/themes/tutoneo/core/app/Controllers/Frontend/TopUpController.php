@@ -10,6 +10,7 @@ class TopUpController extends Controller
 {
     public function __construct()
     {
+        
         add_shortcode(Config::APP_PREFIX . 'top_up', [$this, 'get_top_up']);
         register_page_scripts(Page::TOP_UP, $this, 'enqueue_scripts', true);
     }

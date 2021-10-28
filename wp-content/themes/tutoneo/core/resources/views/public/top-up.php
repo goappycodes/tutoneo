@@ -35,9 +35,11 @@ include_once('partials/partial-account-header.php');
                                                 </p>
                                             </div>
                                             <div class="infp-col">
-                                                <h4>Enter the valid amount</h4>
-                                                <input type="text" placeholder="minimum 15€" class="form-control pop_up_amount_field">
-                                                <input type="submit" class="gform_next_button pop_up_amount_submit" href="<?php echo get_page_url(Page::TOP_UP_PAYMENT) ?>">
+                                                <form action="<?php echo get_page_url(Page::TOP_UP_PAYMENT) ?>" method="get">
+                                                    <h4>Enter the valid amount</h4>
+                                                    <input type="text" name="amount" placeholder="minimum 15€" class="form-control pop_up_amount_field">
+                                                    <input type="submit" class="btn btn-success btn-xs mr-3" value="Pay Now">
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

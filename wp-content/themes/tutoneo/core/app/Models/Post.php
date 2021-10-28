@@ -57,7 +57,7 @@ abstract class Post extends Model
         foreach ($posts as $post) {
             $data[] = self::get($post);
         }
-
+        
         return $data;
     }
 

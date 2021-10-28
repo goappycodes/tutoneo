@@ -122,6 +122,19 @@ class Booking extends Post
         return false;
     }
 
+    public static function find_by_email($email)
+    {
+        $booking = self::find_by_meta([
+            [self::EMAIL_FIELD, $email]
+        ], ['numberposts' => 1]);
+
+        if (is_array($booking) && count($booking)) {
+            return $booking[0];
+        }
+
+        return false;
+    }
+
     public function has_successful_payment()
     {
         $payments = $this->successful_payments();
