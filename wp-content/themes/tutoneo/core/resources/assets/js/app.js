@@ -11,7 +11,6 @@ jQuery(function($) {
         function sendAjaxRequest(form) {
             var media = form.prop('enctype') == 'multipart/form-data' ? true : false;
             var data = prepapre_form_data(form, media);
-            
             var ajaxObj = {
                 type: 'post',
                 url: app_obj.ajax_url,
@@ -105,15 +104,19 @@ jQuery(function($) {
             form.find(':input').each(function (e) {
                 var name = $(this).attr('name');
                 var value = get_input_value($(this), media);
+                var data = $(this).attr('data-lesson');
                 if (typeof name !== 'undefined') {
                     if (media) {
                         formData.append([name], value);
                     } else {
                         $.extend(formData, { [name]: value });
+                        if(data){
+                            $.extend(formData , { 'lessonId' : data });
+                        }
                     }
                 }
             });
-    
+            console.log(formData);
             return formData;
         }
     

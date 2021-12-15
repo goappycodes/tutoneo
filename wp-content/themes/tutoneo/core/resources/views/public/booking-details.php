@@ -68,12 +68,12 @@ include_once('partials/partial-account-header.php')
                                     <th><?php echo __('Status') ?></th>
                                     <td><?php echo $booking->get_status_label() ?></td>
                                 </tr>
-                                <?php if (Auth::has_role(User::STUDENT_ROLE, User::PARENT_ROLE)): ?>
+                                <?php if (Auth::has_role(User::STUDENT_ROLE, User::PARENT_ROLE)) : ?>
                                     <tr>
                                         <th><?php echo __('Payment Status') ?></th>
                                         <td>
                                             <?php echo $booking->get_payment_status_label() ?>
-                                            <?php if (! $booking->has_successful_payment() && $booking->has_teacher()): ?>
+                                            <?php if (!$booking->has_successful_payment() && $booking->has_teacher()) : ?>
                                                 <a target="_blank" href="<?php echo $booking->get_payment_link() ?>" class="btn btn-success btn-xs ml-3 ">
                                                     <?php echo __('Pay Now') ?>
                                                 </a>

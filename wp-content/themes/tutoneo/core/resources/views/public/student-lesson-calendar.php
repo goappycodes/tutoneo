@@ -12,6 +12,11 @@ include_once('partials/partial-account-header.php');
                         <h4 class="mb-0 font-weight-bold">
                             <?php echo __('Lesson Calendar') ?>
                         </h4>
+                        <div class="text-right">
+                            <a href="#add-lesson-modal" data-toggle="modal" class="btn btn-xs btn-primary">
+                                <?php echo __('Add Lesson') ?>
+                            </a>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row mb-5">
@@ -30,4 +35,6 @@ include_once('partials/partial-account-header.php');
 include('partials/partial-lesson-action-modal.php');
 include('partials/partial-lesson-cancel-modal.php');
 include('partials/partial-lesson-postpone-modal.php');
+include_once('partials/partial-add-lesson-modal.php');
+include_once('partials/partial-lesson-reschedule-modal.php');
 ?>

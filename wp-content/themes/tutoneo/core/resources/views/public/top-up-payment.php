@@ -5,3 +5,8 @@
         </div>
     </div>
 </div>
+
+<?php 
+ include_once('partials/partial-invalid-top-up-amount.php');
+
+?>

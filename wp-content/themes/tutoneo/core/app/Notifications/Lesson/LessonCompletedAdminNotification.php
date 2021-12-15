@@ -25,7 +25,13 @@ class LessonCompletedAdminNotification extends Notification
     {
         $to = Config::get_admin_email();
         $subject = $this->template->get_subject();
-        $body = $this->template->get_body();
+        $content = $this->template->get_body();
+
+        $template = file_get_contents('/home/tutoneoappycodes/public_html/wp-content/themes/tutoneo/email-template/generic.html');
+        $template = str_replace("{{email_subject}}", $subject, $template);
+        $template = str_replace("{{email_content}}", $content, $template);
+        $body     = $template;
+
         $this->send_email($to, $subject, $body);
     }
 }

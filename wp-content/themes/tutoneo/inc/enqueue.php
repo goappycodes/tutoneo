@@ -27,7 +27,14 @@ if ( ! function_exists( 'understrap_scripts' ) ) {
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
+		
 	}
 } // endif function_exists( 'understrap_scripts' ).
 
 // add_action( 'wp_enqueue_scripts', 'understrap_scripts' );
+add_action('wp_enqueue_scripts', 'tutoneo_enqueue_script');
+function tutoneo_enqueue_script(){
+	if(is_page('blog')){
+		wp_enqueue_style('tefl-category-style', get_stylesheet_directory_uri() . '/core/resources/assets/css/public/blog.css', array(), time());
+	}
+}

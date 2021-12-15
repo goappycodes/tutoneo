@@ -81,7 +81,7 @@ class BookingController extends Controller
             }
 
             $user_id = $user->get_id();
-        } 
+        }
 
         $booking_data = BookingService::prepare_booking_data($entry, $form);
         $booking_meta = BookingService::prepare_booking_meta($entry, $form);

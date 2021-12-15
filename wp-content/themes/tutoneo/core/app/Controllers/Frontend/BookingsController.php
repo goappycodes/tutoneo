@@ -13,7 +13,10 @@ use App\Events\BookingCancellationAlerts;
 use App\Events\BookingCancelledEvent;
 use App\Events\MatchFoundEvent;
 use App\Events\BookingCreatedEvent;
+use App\Events\PaymentRefundEvent;
 use App\Http\Response;
+use App\Notifications\Booking\BookingProblemReportNotification;
+
 
 class BookingsController extends Controller
 {
@@ -22,6 +25,7 @@ class BookingsController extends Controller
     const CLONE_BOOKING_ACTION = Config::APP_PREFIX . 'clone_booking';
     const CLONE_WITHOUT_TEACHER_ACTION = Config::APP_PREFIX . 'clone_booking_without_teacher';
     const CANCEL_BOOKING_ACTION = Config::APP_PREFIX . 'cancel_booking';
+    const REPORT_BOOKING_PROBELM = Config::APP_PREFIX. 'report_booking';
 
     public function __construct()
     {
@@ -33,8 +37,9 @@ class BookingsController extends Controller
         add_action('wp_ajax_' . self::CLONE_BOOKING_ACTION, [$this, 'clone_booking']);
         add_action('wp_ajax_' . self::CLONE_WITHOUT_TEACHER_ACTION, [$this, 'clone_booking_without_teacher']);
         add_action('wp_ajax_' . self::CANCEL_BOOKING_ACTION, [$this, 'cancel_booking']);
+        add_action('wp_ajax_' . self::REPORT_BOOKING_PROBELM, [$this , 'report_booking_problem']);
     }
-
+    
     public function enqueue_scripts()
     {
         wp_enqueue_style(
@@ -65,6 +70,7 @@ class BookingsController extends Controller
                 'fetch_d_m_response' => self::GET_DOMINANT_RESPONSE_ACTION,
                 'fetch_ques_response' => self::GET_QUESTIONNAIRE_RES_ACTION, 
                 'cancel_booking_action' => self::CANCEL_BOOKING_ACTION, 
+                'report_booking_action' => self::REPORT_BOOKING_PROBELM,
             ]
         );
     }
@@ -178,28 +184,63 @@ class BookingsController extends Controller
             $data = Request::get_validated_data($_POST, [
                 'reference_no' => ['required', 'post_exists:' . Booking::POST_TYPE]
             ]);
-    
             $booking = Booking::find_by_ref($data['reference_no']);
     
             if (! $booking || $booking->is_cancelled() || $booking->is_refunded()) {
                 Response::error(__('Invalid booking'));
             }
+            
+            foreach($booking->datewise_sorted_lessons() as $lesson): 
+                if(!$lesson->completed()):
+                    $payment_refund_event = new PaymentRefundEvent($booking , $lesson);
+                    $payment_refund_event->fire();  
+                endif;
+            endforeach;
 
             $result = $booking->set_meta(Booking::STATUS, Booking::STATUS_CANCELLED);
-    
-            if ($result) {
-                (new BookingCancellationAlerts($booking))->fire();
-                
-                $event_result = (new BookingCancelledEvent($booking))->fire();
 
-                if ($event_result) {
-                    Response::success(__('Booking cancelled successfully!'));
-                }
+            if ($result) {
+                
+                (new BookingCancellationAlerts($booking))->fire();
+            
+                // $event_result = (new BookingCancelledEvent($booking))->fire();
+
+                // if ($event_result) {
+                    if(Auth::has_role(User::TEACHER_ROLE)){
+                        $current_user_id = get_current_user_id();
+                        $user = get_user_by('ID' , $current_user_id );
+                        $user->set_role('none');
+                        wp_logout(); 
+                    }
+                    Response::success(__('Booking cancelled successfully!'));  
+                // } 
             }
         } catch (\Exception $e) {
             send_error_email($e);
             Response::error(__('Server error occurred!'));
         }
 
+    }
+    public function report_booking_problem(){
+        
+        try{
+            $data = Request::get_validated_data($_POST, [
+                'reference_no' => ['required', 'post_exists:' . Booking::POST_TYPE],
+            ]);
+            $booking = Booking::find_by_ref($data['reference_no']);
+            $message = $data['problem'];
+
+            echo $message;
+            die();
+            
+            if (! $booking || $booking->is_cancelled() || $booking->is_refunded()) {
+                Response::error(__('Invalid booking'));
+            }
+            
+            (new BookingProblemReportNotification($booking , $message))->send();  
+            Response::success(__('Problem Reported. We will get you shortly.'));   
+        }catch(\Exception $e){
+            send_error_email($e);
+        }
     }
 }

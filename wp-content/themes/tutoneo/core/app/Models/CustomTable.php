@@ -54,6 +54,48 @@ abstract class CustomTable extends Model
         return $instance;
     }
 
+    /*added by BB*/
+    public static function get_credit_point_by_lesson_id($booking_id , $lesson_id){
+        global $wpdb;
+
+        $called_class = get_called_class();
+        $instance = new $called_class();
+
+        $instance->table = $instance::TABLE;
+        $table = $instance->table;
+
+        $result = $wpdb->get_results( "SELECT credit_points FROM {$table} WHERE booking_id = {$booking_id} AND lesson_id = {$lesson_id}  AND txn_type ='debit'" );
+
+        if (is_wp_error($result) || !$result) {
+            return false;
+        }
+        
+        $instance->data = $result[0];
+
+        $instances[$called_class][] = $instance;
+        return $instance;
+    }
+
+    public static function check_if_credit_exist($booking_id , $lesson_id){
+        global $wpdb;
+
+        $called_class = get_called_class();
+        $instance = new $called_class();
+
+        $instance->table = $instance::TABLE;
+        $table = $instance->table;
+
+        $result = $wpdb->get_results( "SELECT * FROM {$table} WHERE booking_id = {$booking_id} AND lesson_id = {$lesson_id}  AND txn_type ='credit'" );
+
+        if (is_wp_error($result) || !$result) {
+            return false;
+        }else{
+            return true;
+        }
+        
+        
+    }
+
     public static function insert($data)
     {
         global $wpdb;
@@ -176,5 +218,34 @@ abstract class CustomTable extends Model
     public function get_id()
     {
         return $this->data()->id;
+    }
+
+    public static function get_post_id_from_user_mail($email){
+        global $wpdb;
+
+        $table = "wpng_postmeta";
+        $email_meta =  strval($email);
+
+        $result = $wpdb->get_results( "SELECT post_id FROM {$table} WHERE meta_value = '$email_meta'");
+        
+        if (is_wp_error($result) || !$result) {
+            return false;
+        }
+        
+        return $result;
+    }
+
+    public static function get_user_level($id){
+        global $wpdb;
+
+        $table = "wpng_postmeta";
+        $result = $wpdb->get_results( "SELECT meta_value FROM {$table} WHERE meta_key = 'level' AND post_id = 659");
+        
+        if (is_wp_error($result) || !$result) {
+            return false;
+        }
+        
+        return $result;
+
     }
 }

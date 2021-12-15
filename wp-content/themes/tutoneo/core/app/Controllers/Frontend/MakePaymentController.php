@@ -53,7 +53,6 @@ class MakePaymentController extends Controller
 
         try {
             $this->stripe_session = $this->create_stripe_session($booking);
-            // $this->stripe_session = $this->create_stripe_session_user();
         } catch (\Exception $e) {
             $this->error_type = 'stripe_error';
             return;

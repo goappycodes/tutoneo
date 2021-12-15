@@ -42,10 +42,14 @@ class EmailTemplate extends Post
     const CREDIT_WITHDRAWAL_USER      = 'credit_withdrawal_user';
     const CREDIT_WITHDRAWAL_ADMIN     = 'credit_withdrawal_admin';
 
+    const TEACHER_AMOUNT_WITHDRAWAL   = 'teacher_amount_withdrawal';
+    const BOOKING_PROBLEM_REPORT      =  'booking_problem_report';
+    const TEACHER_FEEDBACK_FOR_PARENT    = 'teacher_feedback_for_parent';
+
     public static function find_by_type($type)
     {
         $posts = self::find_by_meta([
-            [ self::TYPE, $type]
+            [self::TYPE, $type]
         ]);
 
         if (count($posts)) {

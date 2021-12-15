@@ -81,6 +81,14 @@ use App\Services\Auth;
                     </a>
                 </li>
                 <?php endif; ?>
+
+                <?php if (Auth::has_role(User::STUDENT_ROLE, User::PARENT_ROLE)): ?>
+                <li class="dropdown-item">
+                    <a href="<?php echo get_page_url(Page::TOP_UP) ?>" class="dropdown-link">
+                        <?php echo __('Top Up') ?>
+                    </a>
+                </li>
+                <?php endif; ?>
                 
                 <?php if (Auth::has_role(User::TEACHER_ROLE)): ?>
                 <li class="dropdown-item">

@@ -45,6 +45,7 @@ class Booking extends Post
     const STATUS_CREATED         = 'Created';
     const STATUS_CANCELLED       = 'Cancelled';
     const STATUS_REFUNDED        = 'Refunded';
+    const LEVEL                  =   'level';
 
     public function user()
     {

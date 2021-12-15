@@ -4,6 +4,7 @@ $(document).ready(function () {
         var calendarEl = document.getElementById('teacher-lesson-calendar');
 
         var lessonActionModal = $('#lesson-action-modal');
+        var lessonConfirmModal = $('#lesson-confirm-action-modal');
 
         var addLessonModal = $('#add-lesson-modal');
         var addLessonForm = $('#add-lesson-form');
@@ -33,32 +34,45 @@ $(document).ready(function () {
                 return { html: content };
             },
             eventClick: function (eventClickInfo) {
+                // console.log(eventClickInfo);
                 if (eventClickInfo.event.extendedProps.completed) {
+                    // console.log(eventClickInfo.event);
                     return false;
                 }
-                showActionModal(eventClickInfo.event.id);
+                else if (eventClickInfo.event.extendedProps.pending) {
+                    showConfirmActionModal(eventClickInfo.event.id);
+                } else {
+                    showActionModal(eventClickInfo.event.id, eventClickInfo.event.extendedProps.payer_mail);
+                }
             }
         });
 
         calendar.render();
         fillBookings();
 
-        function showActionModal(id)
-        {
+        function showConfirmActionModal(id, payer_mail) {
             var event = calendar.getEventById(id);
+            lessonConfirmModal.find('.lesson-action-btn :input').attr('data-lesson', id);
+            lessonConfirmModal.find('.lesson-action-btn :input').attr('data-start', getFormattedDateTime(event.start));
+            lessonConfirmModal.modal('show');
+        }
+
+        function showActionModal(id, payer_mail) {
+            var event = calendar.getEventById(id);
+            lessonActionModal.find('.lesson-action-btn :input').attr('data-payer_mail', payer_mail);
             lessonActionModal.find('.lesson-action-btn :input').attr('data-lesson', id);
             lessonActionModal.find('.lesson-action-btn :input').attr('data-start', getFormattedDateTime(event.start));
             lessonActionModal.modal('show');
         }
-        
+
         if (teacher_lesson_calendar.url_args.booking !== 'undefined') {
             if (teacher_lesson_calendar.url_args.action !== 'undefined') {
                 switch (teacher_lesson_calendar.url_args.action) {
-                    case 'add': 
+                    case 'add':
                         lessonFormBooking.val(teacher_lesson_calendar.url_args.booking);
                         addLessonModal.modal('show');
                         break;
-                    case 'reschedule': 
+                    case 'reschedule':
                         rescheduleLesson.val(teacher_lesson_calendar.url_args.lesson);
                         rescheduleLessonModal.modal('show');
                         break;
@@ -88,15 +102,15 @@ $(document).ready(function () {
                 buttons: true,
                 dangerMode: true,
             })
-            .then((result) => {
-                if (result) {
-                    rescheduleLesson.val(event.id);
-                    rescheduleStartTime.val(getFormattedDateTime(event.start));
-                    rescheduleLessonForm.submit();
-                } else {
-                    eventClickInfo.revert();
-                }
-            });
+                .then((result) => {
+                    if (result) {
+                        rescheduleLesson.val(event.id);
+                        rescheduleStartTime.val(getFormattedDateTime(event.start));
+                        rescheduleLessonForm.submit();
+                    } else {
+                        eventClickInfo.revert();
+                    }
+                });
         }
 
         function fillBookings() {
@@ -108,4 +122,4 @@ $(document).ready(function () {
             });
         }
     } // end of condition
-}); 
+});

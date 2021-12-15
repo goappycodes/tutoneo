@@ -35,7 +35,7 @@ class PaymentSuccessEvent extends Event
             'payment_id'   => $this->booking->get_payment_intent_id(),
             'payment_date' => date('Y-m-d H:i:s'),
             'txn_type'     => Payment::TXN_DB,     
-            'amount'       => $this->booking->student_amount(),  
+            'amount'       => $this->booking->student_amount(), 
             'status'       => Payment::STATUS_SUCCESS
         ]);
     }
@@ -48,7 +48,8 @@ class PaymentSuccessEvent extends Event
             'payment_id'    => $this->payment->data()->id,
             'txn_type'      => CreditPointHistory::TXN_CR,
             'event_type'    => CreditPointHistory::EVENT_STUDENT_BOOKING,
-            'credit_points' => $this->booking->get_hours_booked(),
+            // 'credit_points' => $this->booking->get_hours_booked(),
+            'credit_points' => $_SESSION['latest_stripe_paid_amount'],
             'added_at'      => date('Y-m-d H:i:s')
         ]);
     }

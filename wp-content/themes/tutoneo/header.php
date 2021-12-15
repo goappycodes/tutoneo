@@ -116,10 +116,14 @@ $container = get_theme_mod('understrap_container_type');
                                     </a>
                                   
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="navbarDocumentation"  href="<?php echo home_url(); ?>/blog/">
+                                       Blog
+                                    </a>
+                                </li>
                             </ul>
 
                             <?php include_once(Config::PUBLIC_VIEWS_DIR . '/partials/partial-header-right-navigation.php') ?>
-
                         </div>
 
                     </div>

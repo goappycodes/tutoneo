@@ -37,8 +37,25 @@ include_once('partials/partial-account-header.php');
                                             <div class="infp-col">
                                                 <form action="<?php echo get_page_url(Page::TOP_UP_PAYMENT) ?>" method="get">
                                                     <h4>Enter the valid amount</h4>
-                                                    <input type="text" name="amount" placeholder="minimum 15€" class="form-control pop_up_amount_field">
-                                                    <input type="submit" class="btn btn-success btn-xs mr-3" value="Pay Now">
+                                                    <input type="text" name="amount" placeholder="minimum 15€" class="form-control pop_up_amount_field" min="1">
+                                                    <div class="w-100">
+                                                        <input id="have_promocode" name="have_promocode" class="btn btn-primary" type="checkbox" data-toggle="collapse" data-target="#promoCode" aria-expanded="false" aria-controls="promoCode">
+                                                        <label for="have_promocode">I have a promocode</label>
+                                                    </div>   
+                                                    <div class="collapse" id="promoCode">
+                                                        <input type="text" id="promo_code_val" name="promocode" class="form-control" placeholder="Enter your promocode">
+                                                        <p id="promo_msg"></p>
+                                                        <div class="loader_wrapper text-center">
+                                                            <div class="spinner-border text-success d-none" role="status">
+                                                                <span class="invisible"></span>
+                                                            </div>
+                                                        </div>
+                                                            
+                                                        <input type="button" id="apply_promo_code" class="btn btn-success btn-xs mr-3 mt-2 w-100" value="Apply Code">
+                                                        
+                                                    </div>
+                                                    <input type="submit" class="btn btn-success btn-xs mr-3 mt-2 w-100" value="Pay Now">
+                                                    
                                                 </form>
                                             </div>
                                         </div>
@@ -52,3 +69,8 @@ include_once('partials/partial-account-header.php');
         </div>
     </div>
 </main>
+
+<?php 
+ include_once('partials/partial-invalid-top-up-amount.php');
+
+?>

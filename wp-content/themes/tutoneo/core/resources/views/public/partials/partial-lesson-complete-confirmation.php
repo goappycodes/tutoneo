@@ -27,8 +27,10 @@ use App\Controllers\Frontend\TeacherLessonCalendarController;
                 <form class="ajax-form" id="lesson-complete-form">
                     <input type="hidden" name="action" value="<?php echo TeacherLessonCalendarController::COMPLETE_LESSON_ACTION ?>">
                     <input type="hidden" name="reference_no">
+                    <input type="hidden" name="payer_mail">
                     <div class="row">
                         <div class="col-12">
+                            <textarea name="review_for_parent" id="report_for_parent" placeholder="Review for parent" class="w-100 rounded d-none"></textarea>
                             <button class="btn btn-block btn-success mt-3 lift">
                                 <?php echo __('Complete Lesson') ?>
                             </button>

@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     if (typeof bookings_obj !== 'undefined') {
         var loader = $('.loader');
 
@@ -14,6 +13,9 @@ $(document).ready(function () {
         var lesson_complete_modal = $('#lesson-complete-confirmation');
         var lesson_complete_form = $('#lesson-complete-form');
         var complete_form_lesson = lesson_complete_form.find(':input[name="reference_no"]');
+
+        var report_booking_problem = $('#report-problem-action-modal');
+        var report_booking_form = $('#report-problem-form');
 
         showDominantMemory.click(function (e) {
             e.preventDefault();
@@ -92,6 +94,7 @@ $(document).ready(function () {
                             reference_no: booking_ref,
                         },
                         success: function (response) {
+                           
                             var response = JSON.parse(response);
                             swal(response.message, "", response.status);
                             setTimeout(() => {
@@ -105,6 +108,35 @@ $(document).ready(function () {
                 }
             });
         });
+
+        $('.report-booking').click(function (e){
+            e.preventDefault();
+            var value  = $(this).attr('data-booking');
+            console.log(value);
+            report_booking_form.find("input[name='reference_no']").val(value);
+            report_booking_problem.modal('show');
+        });
+
+        //  $('#report_submit').click(function(e){
+        //     e.preventDefault();
+        //     var booking_ref = report_booking_form.find("input[name='issue']").attr('data-booking');
+        //     var message = report_form.find("input[name='issue']").val();
+        //     $.ajax({
+        //         type: "post",
+        //         url: app_obj.ajax_url,
+        //         data: {
+        //             action: bookings_obj.report_booking_action,
+        //             message : message,
+        //             reference_no : booking_ref,
+        //         },
+        //         success: function (response) {
+        //            console.log('success');
+        //         },
+        //         error: function() {
+        //             console.log('fail');
+        //         }
+        //     });  
+        // });
     }
 
 });

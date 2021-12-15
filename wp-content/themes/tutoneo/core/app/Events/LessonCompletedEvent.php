@@ -7,6 +7,7 @@ use App\Models\TeacherLedger;
 use App\Notifications\Lesson\LessonCompletedAdminNotification;
 use App\Notifications\Lesson\LessonCompletedTeacherNotification;
 use App\Notifications\Lesson\LessonCompletedUserNotification;
+use App\Notifications\Lesson\LessonCompletedThirdPartyNotification;
 
 class LessonCompletedEvent extends Event
 {
@@ -45,8 +46,8 @@ class LessonCompletedEvent extends Event
             TeacherLedger::REFERENCE => $ref,
             TeacherLedger::TXN_TYPE  => TeacherLedger::TXN_EARNING,
             TeacherLedger::USER      => $this->lesson->teacher()->get_id(),
-            TeacherLedger::BOOKING   => $this->lesson->booking()->get_id(), 
-            TeacherLedger::LESSON    => $this->lesson->get_id(), 
+            TeacherLedger::BOOKING   => $this->lesson->booking()->get_id(),
+            TeacherLedger::LESSON    => $this->lesson->get_id(),
             TeacherLedger::AMOUNT    => $this->lesson->teacher_amount(),
         ]);
     }

@@ -6,6 +6,8 @@ $(document).ready(function () {
     var lesson_complete_modal = $('#lesson-complete-confirmation');
     var lesson_complete_form = $('#lesson-complete-form');
     var complete_form_lesson = lesson_complete_form.find(':input[name="reference_no"]');
+    var complete_form_lesson_payer_mail = lesson_complete_form.find(':input[name="payer_mail"]');
+    var report_for_parent_field = $('#report_for_parent');
 
     var rescheduleLessonModal = $('#lesson-reschedule-modal');
     var rescheduleLessonForm = $('#lesson-reschedule-form');
@@ -20,16 +22,25 @@ $(document).ready(function () {
         e.preventDefault();
         var reference_no = $(this).data('lesson');
         var start = $(this).data('start');
+        var payer_mail = $(this).attr('data-payer_mail');
         lesson_action_btn.attr('data-lesson', reference_no);
         lesson_action_btn.attr('data-start', start);
+        lesson_action_btn.attr('data-payer_mail', payer_mail);
         lesson_action_modal.modal('show');
     });
 
     $('body').on('click', '.lesson-complete-request', function (e) {
         e.preventDefault();
-        var reference_no = $(this).data('lesson');
+        let reference_no = $(this).attr('data-lesson');
+        let payer_mail = $(this).attr('data-payer_mail');
         lesson_complete_modal.modal('show');
         complete_form_lesson.val(reference_no);
+        if (payer_mail) {
+            $('#report_for_parent').removeClass('d-none');
+            complete_form_lesson_payer_mail.val(payer_mail);
+        } else {
+            $('#report_for_parent').addClass('d-none');
+        }
     });
 
     $('body').on('click', '.lesson-reschedule-request', function () {
@@ -50,11 +61,11 @@ $(document).ready(function () {
             buttons: true,
             dangerMode: true,
         })
-        .then((result) => {
-            if (result) {
-                lesson_field.val(lesson);
-                lesson_cancel_modal.modal('show');
-            }
-        });
+            .then((result) => {
+                if (result) {
+                    lesson_field.val(lesson);
+                    lesson_cancel_modal.modal('show');
+                }
+            });
     });
-}); 
+});

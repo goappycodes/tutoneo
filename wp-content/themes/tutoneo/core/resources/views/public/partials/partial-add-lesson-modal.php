@@ -1,5 +1,9 @@
 <?php 
 use App\Controllers\Frontend\TeacherLessonCalendarController;
+use App\Controllers\Frontend\StudentLessonCalendarController;
+use App\Models\User;
+use App\Services\Auth;
+
 ?>
 <div class="modal fade show" id="add-lesson-modal" tabindex="-1" aria-labelledby="addLesson" aria-modal="true" role="dialog" style="padding-left: 17px;">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -23,7 +27,11 @@ use App\Controllers\Frontend\TeacherLessonCalendarController;
 
                 <!-- Form -->
                 <form class="ajax-form" id="add-lesson-form">
-                    <input type="hidden" name="action" value="<?php echo TeacherLessonCalendarController::ADD_LESSON_ACTION ?>">
+                    <?php if(Auth::has_role(User::STUDENT_ROLE, User::PARENT_ROLE)) : ?>
+                        <input type="hidden" name="action" value="<?php echo StudentLessonCalendarController::ADD_LESSON_ACTION ?>">
+                    <?php else : ?>
+                        <input type="hidden" name="action" value="<?php echo TeacherLessonCalendarController::ADD_LESSON_ACTION ?>">
+                    <?php endif; ?>
                     <div class="row">
                         <div class="col-12 form-group">
                             <div class="form-label-group">

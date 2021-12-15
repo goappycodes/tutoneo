@@ -37,4 +37,6 @@ include_once('partials/partial-add-lesson-modal.php');
 include_once('partials/partial-lesson-cancel-modal.php');
 include_once('partials/partial-lesson-complete-confirmation.php');
 include_once('partials/partial-lesson-reschedule-modal.php');
+
+include_once('partials/partial-teacher-action-modal.php');
 ?>

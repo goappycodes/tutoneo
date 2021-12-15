@@ -25,11 +25,19 @@ use App\Services\FrontendAlertService;
                     <?php echo __('My Credits: ') . Auth::user()->get_credit_points() ?>
                 </p>
                 <?php } ?>
-
+                <?php if (Auth::has_role(User::STUDENT_ROLE, User::PARENT_ROLE)) { ?> 
+                <p class="font-size-sm text-danger">
+                    <?php echo ( Auth::user()->get_credit_points() < 10 ) ?  __('Please recharge your wallet'): '' ; ?>
+                </p>
+                <?php } ?>
                 <?php if (Auth::has_role(User::TEACHER_ROLE)) { ?> 
                 <p class="font-size-lg  mb-0">
                     <?php echo __('My Wallet: ') . Auth::user()->get_wallet_amount(true) ?>
                 </p>
+                
+                <a href="#add-lesson-modal" class="border-button" id="amount_withdrawl">
+                    <?php echo __('Withdrawal') ?>
+                </a>
                 <?php } ?>
 
             </div>

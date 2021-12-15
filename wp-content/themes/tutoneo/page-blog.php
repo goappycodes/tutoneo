@@ -59,58 +59,54 @@ $container = get_theme_mod( 'understrap_container_type' );
         
         <?php 
 // the query
-$wpb_all_query = new WP_Query(array('post_type'=>'post', 'post_status'=>'publish', 'posts_per_page'=>2)); ?>
+$wpb_all_query = new WP_Query(array('post_type'=>'post', 'post_status'=>'publish', 'posts_per_page'=>16)); ?>
  
 <?php if ( $wpb_all_query->have_posts() ) : ?>
  
  <div class="row">
+     <?php $post_counter = 0; ?>
       <?php while ( $wpb_all_query->have_posts() ) : $wpb_all_query->the_post(); ?>
-    <div class="col-12 col-md-6 col-lg-4 d-flex">
-                <div class="card mb-6 mb-lg-6 shadow-light-lg lift lift-lg custom-img">
-                    <a class="card-img-top" href="<?php the_permalink(); ?>">
-                    <?php the_post_thumbnail('full'); ?>
-                      
+            <?php
+                $post_counter++;
+                if($post_counter == 1):
+                    ?>
+                        <div class="grid-view-images mb-3 mb-lg-3">
+                    <?php
+                elseif($post_counter == 5):
+                    ?>
+                        </div>
+                    <?php
+                endif;
+                
+                if($post_counter < 5):
                     
-                        <div class="position-relative">
-                            <div class="shape shape-bottom shape-fluid-x svg-shim text-white">
-                                <svg viewBox="0 0 2880 480" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2160 0C1440 240 720 240 720 240H0v240h2880V0h-720z" fill="currentColor" />
-                                </svg>
+                    ?>
+                        <a href="<?php the_permalink(); ?>" class="shadow-light-lg lift lift-lg custom-img">
+                            <?php the_post_thumbnail('full'); ?>  
+                            <h3>
+                                <?php the_title(); ?>
+                            </h3>
+                        </a>
+                    <?php
+                        else:
+                    ?>
+                        <div class="col-12 col-md-6 col-lg-4 d-flex blog_col_wrapper">
+                            <div class="card mb-3 mb-lg-3 shadow-light-lg lift lift-lg custom-img">
+                                <a class="card-img-top" href="<?php the_permalink(); ?>">
+                                    <?php the_post_thumbnail('full'); ?> 
+                                    <h3>
+                                        <?php the_title(); ?>
+                                    </h3> 
+                                </a>
                             </div>
                         </div>
-                    </a>
-                    <a class="card-body" href="<?php the_permalink(); ?>">
-                        <h3>
-                            <?php the_title(); ?>
-                        </h3>
-                       
-                        <?php echo wp_trim_words( get_the_content(), 15 ); ?>
-                    </a>
-                 
-                    <a class="card-meta mt-auto" href="#!">
-                        <hr class="card-meta-divider">
-                        <!--<div class="avatar avatar-sm mr-2">-->
-                        <!--    <img src="<?php echo get_stylesheet_directory_uri(); ?>/ui/assets/img/avatars/avatar-1.jpg" alt="..." class="avatar-img rounded-circle">-->
-                        <!--</div>-->
-                        <h6 class="text-uppercase text-muted mr-2 mb-0">
-                            <?php the_author(); ?>
-                        </h6>
-                        <p class="h6 text-uppercase text-muted mb-0 ml-auto">
-                            <time> <?php the_date(); ?></time>
-                        </p>
-                    </a>
-                </div>
-            </div>
-            <?php endwhile; ?>
+                    <?php
+                endif;
+            ?>
             
-  
-          
+            <?php endwhile; ?>         
           </div>
          <?php wp_reset_postdata(); ?>
-        
-           
-        
- 
 <?php else : ?>
     <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
 <?php endif; ?>

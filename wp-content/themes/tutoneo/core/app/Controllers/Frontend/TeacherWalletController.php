@@ -9,7 +9,9 @@ use App\Controllers\Controller;
 use App\Http\Request;
 use App\Http\Response;
 use App\Models\Payment;
+use App\Notifications\TeacherRegistration\TeacherAmountWithdrawl;
 use App\Services\Auth;
+
 
 class TeacherWalletController extends Controller
 {
@@ -77,10 +79,15 @@ class TeacherWalletController extends Controller
         ]);
 
         if (!is_wp_error($result) && $result) {
-            Response::success([
-                'message' => 'Success! Amount has been debited from wallet',
-                'redirect' => get_page_url(Page::TEACHER_WALLET)
-            ]);
+            
+            $event_result = (new TeacherAmountWithdrawl())->send();
+
+            if($event_result){
+                Response::success([
+                    'message' => 'Success! Amount has been debited from wallet',
+                    'redirect' => get_page_url(Page::TEACHER_WALLET)
+                ]);
+            }    
         } else {
             Response::error([
                 'message' => 'Sorry! We can\'t process your request at this moment'

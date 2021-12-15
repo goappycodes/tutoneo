@@ -402,6 +402,11 @@ class ShortCodeService
                     self::CREDIT_POINTS,
                 ];
                 break;
+            case EmailTemplate::BOOKING_PROBLEM_REPORT:
+                $short_codes = [
+                    self::APP_NAME,
+                ];
+                break;
             
             default:
                 $short_codes = [];

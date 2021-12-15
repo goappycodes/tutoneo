@@ -53,11 +53,11 @@ abstract class Post extends Model
         $called_class = get_called_class();
         $posts = self::get_post_by_meta($meta_data, $args + ['post_type' => $called_class::POST_TYPE]);
         
+        
         $data = [];
         foreach ($posts as $post) {
             $data[] = self::get($post);
         }
-        
         return $data;
     }
 

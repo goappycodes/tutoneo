@@ -15,6 +15,20 @@ class Lesson extends Post
     const IS_CANCELLED = 'is_cancelled';
     const REASON       = 'cancellation_reason';
     const CANCELLED_BY = 'cancelled_by';
+    const LUNCH_URL    = 'lunch_url';
+
+    const PAYER_MAIL    =   'payer_mail';
+    const PENDING   =   'pending';
+    const APPROVED = 'approved';
+
+    const TABLE = 'wpng_postmeta';
+
+
+    public function amount($user_post_id, $user_level)
+    {
+        $rate = Settings::new_teacher_hourly_rate($user_post_id, $user_level);
+        return $rate;
+    }
 
     public function booking()
     {
@@ -84,7 +98,12 @@ class Lesson extends Post
 
     public function completed()
     {
-        return $this->get_meta(self::COMPLETED) == '1' ? true : false; 
+        return $this->get_meta(self::COMPLETED) == '1' ? true : false;
+    }
+
+    public function pending()
+    {
+        return $this->get_meta(self::PENDING) == '1' ? true : false;
     }
 
     public function get_teacher_name()
@@ -112,7 +131,7 @@ class Lesson extends Post
         $lesson = self::find_by_meta([
             [self::REFERENCE, $ref]
         ], ['numberposts' => 1]);
-            
+
         if (is_array($lesson) && count($lesson)) {
             return $lesson[0];
         }
@@ -188,7 +207,7 @@ class Lesson extends Post
             return true;
         }
 
-        return false;        
+        return false;
     }
 
     public function duration_in_hours()
@@ -196,7 +215,7 @@ class Lesson extends Post
         $start_time  = strtotime($this->get_start_time());
         $end_time = strtotime($this->get_end_time());
         $diff_in_sec = $end_time - $start_time;
-        return round($diff_in_sec/3600, 2);
+        return round($diff_in_sec / 3600, 2);
     }
 
     public function teacher_amount()
@@ -213,5 +232,15 @@ class Lesson extends Post
         }
 
         return false;
+    }
+
+    public function get_payer_mail()
+    {
+        return $this->get_meta(self::PAYER_MAIL);
+    }
+
+    public function get_launch_url()
+    {
+        return $this->get_meta(self::LUNCH_URL);
     }
 }
